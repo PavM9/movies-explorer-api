@@ -19,5 +19,5 @@
 - Mongoose
 
 ## Ссылки:
-* Публичный IP: [84.252.129.23](https://84.252.129.23)
+* Публичный IP: [84.252.129.23](http://84.252.129.23)
 * Домен: [https://api.moviespavm9.nomoredomains.club](https://api.moviespavm9.nomoredomains.club)
