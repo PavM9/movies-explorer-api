@@ -43,10 +43,6 @@ async function getCurrentUser(req, res, next) {
 
     res.send(user);
   } catch (err) {
-    if (err.name === 'CastError') {
-      next(new BadRequestError('Неверный формат данных в запросе'));
-      return;
-    }
     next(err);
   }
 }
@@ -67,9 +63,10 @@ async function createUser(req, res, next) {
       },
     });
   } catch (err) {
-    if (err.name === 'MongoServerError' && err.code === 11000) {
+    if (err.code === 11000) {
       next(new ConflictError('Пользователь с таким логином уже существует'));
-    } else if (err.name === 'ValidationError') {
+    }
+    if (err.name === 'ValidationError') {
       next(new BadRequestError('Неверный формат данных в запросе'));
     }
     next(err);
@@ -94,6 +91,9 @@ async function updateUser(req, res, next) {
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError('Неверный формат данных в запросе'));
+    }
+    if (err.code === 11000) {
+      next(new ConflictError('Email принадлежит другому пользователю'));
     }
     next(err);
   }

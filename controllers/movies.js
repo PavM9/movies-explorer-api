@@ -7,7 +7,7 @@ const {
 
 async function getMovies(req, res, next) {
   try {
-    const movies = await Movie.find({ owner: req.user._id }).populate('owner');
+    const movies = await Movie.find({ owner: req.user._id });
     res.send(movies);
   } catch (err) {
     next(err);
@@ -69,7 +69,7 @@ async function deleteMovie(req, res, next) {
       throw new ForbiddenError('Невозможно удалить чужой фильм');
     }
     await movie.remove();
-    res.send(movie);
+    res.send({ message: 'Вы удалили фильм из избранного' });
   } catch (err) {
     next(err);
   }
