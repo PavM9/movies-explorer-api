@@ -34,12 +34,12 @@ userSchema.statics.findUserByCredentials = function (email, password) {
     .select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new AuthError('Передан неверный логин или пароль'));
+        throw new AuthError('Передан неверный логин или пароль');
       }
       return bcrypt.compare(password, user.password)
         .then((match) => {
           if (!match) {
-            return Promise.reject(new AuthError('Передан неверный логин или пароль'));
+            throw new AuthError('Передан неверный логин или пароль');
           }
           return user;
         });
