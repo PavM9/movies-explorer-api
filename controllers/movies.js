@@ -29,6 +29,12 @@ async function createMovie(req, res, next) {
       thumbnail,
       movieId,
     } = req.body;
+
+    // const movieCheck = await Movie.findOne({ movieId: req.body.movieId });
+    // if (movieCheck) {
+    //   throw new ForbiddenError('Фильм уже добавлен');
+    // }
+
     const ownerId = req.user._id;
     const movie = await Movie.create({
       country,
